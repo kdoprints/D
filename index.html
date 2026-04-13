@@ -1,38 +1,145 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Description Generator</title>
-<style>
-body { font-family: Arial; background:#f5f5f5; margin:0; }
-.container { max-width:600px; margin:40px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);} 
-h2 { text-align:center; }
-input, textarea { width:100%; padding:10px; margin:8px 0; border-radius:5px; border:1px solid #ccc; }
-button { width:100%; padding:12px; background:black; color:white; border:none; border-radius:5px; cursor:pointer; }
-.output { margin-top:20px; white-space:pre-wrap; background:#fafafa; padding:15px; border-radius:8px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order | Kota Doria Original</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #8e44ad; /* Royal ethnic purple */
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .tracking-box {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .tracking-box h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #8e44ad;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #e67e22; /* Warm accent color */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #d35400;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .contact-info {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+    </style>
 </head>
-<body><div class="container">
-<h2>✨ Dress Description Generator ✨</h2><input id="title" placeholder="Product Title">
-<input id="includes" placeholder="Includes (shirt, dupatta, bottom)">
-<input id="work" placeholder="Work (Embroidery, Print etc)">
-<input id="price" placeholder="Price"><button onclick="generate()">Generate</button>
+<body>
 
-<div class="output" id="output"></div>
-</div><script>
-function generate(){
-  let title = document.getElementById('title').value;
-  let includes = document.getElementById('includes').value.split(',');
-  let work = document.getElementById('work').value;
-  let price = document.getElementById('price').value;
+    <header>
+        <h1>Kota Doria Original</h1>
+        <p>Premium Dress Materials & Fabrics</p>
+    </header>
 
-  let includesFormatted = includes.map(i => '• ' + i.trim()).join('\n');
+    <div class="container">
+        <div class="tracking-box">
+            <h2>Track Your Parcel</h2>
+            <p style="color: #666; margin-bottom: 25px;">Enter your Delhivery AWB number below to check your shipment status.</p>
+            
+            <input type="text" id="awbNumber" placeholder="Enter AWB Number..." autocomplete="off" />
+            <button onclick="trackNow()">Track Order</button>
+        </div>
+    </div>
 
-  let note = includes.map(i => i.trim().toLowerCase()).includes('bottom') ? 'Bottom included' : 'Bottom available @ ₹200 extra (2.5 Mtr)';
+    <footer>
+        <div>Sanjay Nagar, Badi Bhimpura, Kaithun, Kota, Rajasthan – 325001</div>
+        <div class="contact-info">WhatsApp / Support: +91 9664498112</div>
+        <div style="margin-top: 15px;">&copy; 2026 Kota Doria Original. All rights reserved.</div>
+    </footer>
 
-  let text = `✨ *${title}* ✨\n\n_*Includes:*_\n${includesFormatted}\n\n_*Work:*_ ${work}\n\n_*Dispatch Time:*_ Ready to Dispatch\n\n_*Price:*_ ₹${price} *(Free Shipping)* 🚚\n\n_*Note:*_ ${note}`;
+    <script>
+        function trackNow() {
+            var awb = document.getElementById('awbNumber').value.trim();
+            if(awb === "") {
+                alert("Please enter a valid AWB number.");
+                return;
+            }
+            // Redirects user securely to the official tracking page with their AWB filled in
+            var trackingUrl = "https://www.delhivery.com/track/package/" + awb;
+            window.open(trackingUrl, '_blank');
+        }
 
-  document.getElementById('output').innerText = text;
-}
-</script></body>
+        // Allow pressing "Enter" key to track
+        document.getElementById("awbNumber").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                trackNow();
+            }
+        });
+    </script>
+
+</body>
 </html>
